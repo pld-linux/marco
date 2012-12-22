@@ -1,7 +1,9 @@
 # TODO
 # - subpackages for themes (see metacity.spec)
 # - -libs subpackage
-
+#rpm -Uhv  mate-window-manager-devel-1.5.2-0.4.i686.rpm
+#        libmarco-private.so.0 is needed by mate-window-manager-devel-1.5.2-0.4.i686
+#        mate-window-manager = 1.5.2-0.4 is needed by mate-window-manager-devel-1.5.2-0.4.i686
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
 Version:	1.5.2
@@ -33,6 +35,7 @@ BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(xdamage)
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
+Suggests:	mate-control-center
 Requires(post):	/sbin/ldconfig
 Obsoletes:	mate-window-manager-libs < 1.4.1-2
 # http://bugzilla.redhat.com/873342

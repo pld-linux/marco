@@ -1,13 +1,9 @@
 # TODO
 # - subpackages for themes (see metacity.spec)
-# - -libs subpackage
-#rpm -Uhv  mate-window-manager-devel-1.5.2-0.4.i686.rpm
-#        libmarco-private.so.0 is needed by mate-window-manager-devel-1.5.2-0.4.i686
-#        mate-window-manager = 1.5.2-0.4 is needed by mate-window-manager-devel-1.5.2-0.4.i686
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
 Version:	1.5.2
-Release:	0.4
+Release:	0.5
 License:	LGPLv2+ and GPLv2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
@@ -35,6 +31,7 @@ BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(xdamage)
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
 Suggests:	mate-control-center
@@ -42,16 +39,26 @@ Requires(post):	/sbin/ldconfig
 Obsoletes:	mate-window-manager-libs < 1.4.1-2
 # http://bugzilla.redhat.com/873342
 #Provides:	firstboot(windowmanager) = mate-window-manager
-
-#filter_from_requires /^libmarco-private.so/d;
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 MATE Desktop window manager
 
+%package libs
+Summary:	marco library
+Summary(pl.UTF-8):	marco biblioteka
+Group:		X11/Libraries
+
+%description libs
+This package contains libraries for MATE window manager.
+
+%description libs -l pl.UTF-8
+Pakiet zawierający biblioteki zarządcy okien MATE.
+
 %package devel
 Summary:	Development files for mate-window-manager
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 Development files for mate-window-manager
@@ -124,15 +131,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/marco.1.*
 %{_mandir}/man1/marco-message.1.*
 
-# -libs
-%attr(755,root,root) %{_libdir}/libmarco-private.so.*.*.*
-%ghost %{_libdir}/libmarco-private.so.0
-
 # XXX find proper packages
 %dir %{_datadir}/mate-control-center
 %dir %{_datadir}/mate-control-center/keybindings
 %dir %{_datadir}/mate/help/creating-marco-themes
 %dir %{_datadir}/mate/help/creating-marco-themes/C
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libmarco-private.so.*.*.*
+%ghost %{_libdir}/libmarco-private.so.0
 
 %files devel
 %defattr(644,root,root,755)

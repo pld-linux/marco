@@ -61,9 +61,9 @@ Development files for mate-window-manager
 %patch0 -p1
 #patch1 -p1
 %patch2 -p1
-NOCONFIGURE=1 ./autogen.sh
 
 %build
+NOCONFIGURE=1 ./autogen.sh
 %configure \
 	--disable-static \
 	--disable-scrollkeeper \

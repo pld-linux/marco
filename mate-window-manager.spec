@@ -10,7 +10,6 @@ Version:	1.5.2
 Release:	0.4
 License:	LGPLv2+ and GPLv2+
 Group:		X11/Window Managers
-URL:		http://mate-desktop.org/
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
@@ -19,6 +18,7 @@ Patch1:		initialise_all_workspace_names.patch
 # upstream patch
 # https://github.com/mate-desktop/mate-window-manager/commit/6404a98fb79e7bb4c3e9c5ca9919e12c946679d7
 Patch2:		0001-fix-startup-rendering-effect-with-composite-enabled.patch
+URL:		http://mate-desktop.org/
 BuildRequires:	desktop-file-utils
 BuildRequires:	mate-common
 BuildRequires:	mate-dialogs
@@ -33,6 +33,8 @@ BuildRequires:	pkgconfig(libstartup-notification-1.0)
 BuildRequires:	pkgconfig(mate-doc-utils)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(xdamage)
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
 Suggests:	mate-control-center

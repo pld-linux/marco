@@ -4,7 +4,7 @@
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
 Version:	1.5.3
-Release:	0.5
+Release:	0.10
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
@@ -93,7 +93,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -vf {} ';'
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libmarco-private.la
+
+# mate < 1.5 did not exist in pld, avoid dependency on mate-conf
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/marco.convert
 
 desktop-file-install \
 	--remove-category="MATE" \
@@ -125,9 +128,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
 %{_datadir}/mate/wm-properties
 %{_datadir}/glib-2.0/schemas/org.mate.marco.gschema.xml
-%{_datadir}/MateConf/gsettings/marco.convert
 %{_mandir}/man1/marco.1.*
 %{_mandir}/man1/marco-message.1.*
+
+# XXX find proper packages
+%dir %{_datadir}/mate-control-center
+%dir %{_datadir}/mate-control-center/keybindings
+%dir %{_datadir}/mate/help/creating-marco-themes
+%dir %{_datadir}/mate/help/creating-marco-themes/C
 
 %files themes
 %defattr(644,root,root,755)
@@ -141,12 +149,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/themes/Splint
 %{_datadir}/themes/WinMe
 %{_datadir}/themes/eOS
-
-# XXX find proper packages
-%dir %{_datadir}/mate-control-center
-%dir %{_datadir}/mate-control-center/keybindings
-%dir %{_datadir}/mate/help/creating-marco-themes
-%dir %{_datadir}/mate/help/creating-marco-themes/C
 
 %files libs
 %defattr(644,root,root,755)

@@ -1,5 +1,6 @@
 # TODO
 # - subpackages for themes (see metacity.spec)
+# - find proper packages for %files
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
 Version:	1.5.3
@@ -31,6 +32,8 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
 Suggests:	mate-control-center
+# can use any gtk+2 themes nicely, Adwaita specially
+Suggests:	%{name}-themes
 Requires(post):	/sbin/ldconfig
 Obsoletes:	mate-window-manager-libs < 1.4.1-2
 # http://bugzilla.redhat.com/873342
@@ -58,6 +61,14 @@ Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 Development files for mate-window-manager
+
+%package themes
+Summary:	Themes for Mate Window Manager
+Group:		Themes/GTK+
+Requires:	%{name} = %{version}-%{release}
+
+%description themes
+Themes for Mate Window Manager.
 
 %prep
 %setup -q
@@ -109,6 +120,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/marco
 %attr(755,root,root) %{_bindir}/marco-message
 %{_desktopdir}/marco.desktop
+%{_datadir}/marco
+%{_datadir}/mate-control-center/keybindings/50-marco*.xml
+%{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
+%{_datadir}/mate/wm-properties
+%{_datadir}/glib-2.0/schemas/org.mate.marco.gschema.xml
+%{_datadir}/MateConf/gsettings/marco.convert
+%{_mandir}/man1/marco.1.*
+%{_mandir}/man1/marco-message.1.*
+
+%files themes
+%defattr(644,root,root,755)
 %{_datadir}/themes/ClearlooksRe
 %{_datadir}/themes/Dopple-Left
 %{_datadir}/themes/Dopple
@@ -119,14 +141,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/themes/Splint
 %{_datadir}/themes/WinMe
 %{_datadir}/themes/eOS
-%{_datadir}/marco
-%{_datadir}/mate-control-center/keybindings/50-marco*.xml
-%{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
-%{_datadir}/mate/wm-properties
-%{_datadir}/glib-2.0/schemas/org.mate.marco.gschema.xml
-%{_datadir}/MateConf/gsettings/marco.convert
-%{_mandir}/man1/marco.1.*
-%{_mandir}/man1/marco-message.1.*
 
 # XXX find proper packages
 %dir %{_datadir}/mate-control-center

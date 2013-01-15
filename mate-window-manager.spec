@@ -36,6 +36,7 @@ Suggests:	mate-control-center
 Suggests:	%{name}-themes
 Requires(post):	/sbin/ldconfig
 Requires:	mate-icon-theme
+Requires:	mate-settings-daemon
 Obsoletes:	mate-window-manager-libs < 1.4.1-2
 # http://bugzilla.redhat.com/873342
 #Provides:	firstboot(windowmanager) = mate-window-manager

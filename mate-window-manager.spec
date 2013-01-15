@@ -2,34 +2,30 @@
 # - subpackages for themes (see metacity.spec)
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
-Version:	1.5.2
+Version:	1.5.3
 Release:	0.5
-License:	LGPLv2+ and GPLv2+
+License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
+# Source0-md5:	b3ce71f9db8563db1571f8ed80a543e3
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 # https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847
 Patch1:		initialise_all_workspace_names.patch
-# upstream patch
-# https://github.com/mate-desktop/mate-window-manager/commit/6404a98fb79e7bb4c3e9c5ca9919e12c946679d7
-Patch2:		0001-fix-startup-rendering-effect-with-composite-enabled.patch
-URL:		http://mate-desktop.org/
+URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	desktop-file-utils
+BuildRequires:	gsettings-desktop-schemas-devel
+BuildRequires:	gtk+2-devel
+BuildRequires:	libcanberra-devel
+BuildRequires:	libcanberra-gtk-devel
+BuildRequires:	libsoup-devel
 BuildRequires:	mate-common
-BuildRequires:	mate-dialogs
-BuildRequires:	pkgconfig(MateCORBA-2.0)
-BuildRequires:	pkgconfig(gsettings-desktop-schemas)
-BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(ice)
-BuildRequires:	pkgconfig(libcanberra)
-BuildRequires:	pkgconfig(libcanberra-gtk)
-BuildRequires:	pkgconfig(libsoup-2.4)
-BuildRequires:	pkgconfig(libstartup-notification-1.0)
-BuildRequires:	pkgconfig(mate-doc-utils)
-BuildRequires:	pkgconfig(sm)
-BuildRequires:	pkgconfig(xdamage)
+BuildRequires:	mate-doc-utils
+BuildRequires:	startup-notification-devel
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	xorg-lib-libICE-devel
+BuildRequires:	xorg-lib-libSM-devel
+BuildRequires:	xorg-lib-libXdamage-devel
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.26.0
@@ -42,7 +38,7 @@ Obsoletes:	mate-window-manager-libs < 1.4.1-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-MATE Desktop window manager
+MATE Desktop window manager.
 
 %package libs
 Summary:	marco library
@@ -67,11 +63,11 @@ Development files for mate-window-manager
 %setup -q
 %patch0 -p1
 #patch1 -p1
-%patch2 -p1
 
 %build
 NOCONFIGURE=1 ./autogen.sh
 %configure \
+	MATEDIALOG=%{_bindir}/matedialog \
 	--disable-static \
 	--disable-scrollkeeper \
 	--with-gnu-ld \
@@ -128,6 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
 %{_datadir}/mate/wm-properties
 %{_datadir}/glib-2.0/schemas/org.mate.marco.gschema.xml
+%{_datadir}/MateConf/gsettings/marco.convert
 %{_mandir}/man1/marco.1.*
 %{_mandir}/man1/marco-message.1.*
 

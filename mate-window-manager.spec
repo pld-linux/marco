@@ -4,7 +4,7 @@
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
 Version:	1.5.3
-Release:	0.10
+Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz

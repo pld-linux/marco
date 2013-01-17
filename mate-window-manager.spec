@@ -15,11 +15,9 @@ Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 Patch1:		initialise_all_workspace_names.patch
 URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	desktop-file-utils
-BuildRequires:	gsettings-desktop-schemas-devel
 BuildRequires:	gtk+2-devel
 BuildRequires:	libcanberra-devel
 BuildRequires:	libcanberra-gtk-devel
-BuildRequires:	libsoup-devel
 BuildRequires:	mate-common
 BuildRequires:	mate-doc-utils
 BuildRequires:	startup-notification-devel

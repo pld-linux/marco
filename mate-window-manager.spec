@@ -3,12 +3,12 @@
 # - find proper packages for %files
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
-Version:	1.5.4
+Version:	1.5.5
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
-# Source0-md5:	7c271f5c74ab735f73732a5b43fdd749
+# Source0-md5:	f2868ee59c9e564ac7055139df9e918d
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 # https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847

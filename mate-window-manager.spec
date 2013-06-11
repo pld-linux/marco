@@ -3,12 +3,12 @@
 # - find proper packages for %files
 Summary:	MATE Desktop window manager
 Name:		mate-window-manager
-Version:	1.6.1
+Version:	1.6.2
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	92cf0f6679bfeded43bece916004d0bc
+# Source0-md5:	8f6ef12e31d74840aa3db7275149907d
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 # https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847
@@ -20,6 +20,7 @@ BuildRequires:	libcanberra-devel
 BuildRequires:	libcanberra-gtk-devel
 BuildRequires:	mate-common
 BuildRequires:	mate-doc-utils
+BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	startup-notification-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libICE-devel
@@ -76,17 +77,16 @@ Themes for Mate Window Manager.
 #patch1 -p1
 
 %build
-NOCONFIGURE=1 ./autogen.sh
 %configure \
 	MATEDIALOG=%{_bindir}/matedialog \
+	--disable-silent-rules \
 	--disable-static \
 	--disable-scrollkeeper \
 	--with-gnu-ld \
 	--with-gtk=2.0 \
 	--with-x
 
-%{__make} \
-	V=1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -104,7 +104,7 @@ desktop-file-install \
 	--dir=$RPM_BUILD_ROOT%{_desktopdir}  \
 $RPM_BUILD_ROOT%{_desktopdir}/marco.desktop
 
-%find_lang %{name} --all-name
+%find_lang %{name} --all-name --with-mate
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,9 +123,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/marco
 %attr(755,root,root) %{_bindir}/marco-message
 %{_desktopdir}/marco.desktop
-%{_datadir}/marco
+%{_datadir}/mate-window-manager
 %{_datadir}/mate-control-center/keybindings/50-marco*.xml
-%{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
+#%{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
 %{_datadir}/mate/wm-properties
 %{_datadir}/glib-2.0/schemas/org.mate.marco.gschema.xml
 %{_mandir}/man1/marco.1.*
@@ -134,8 +134,6 @@ rm -rf $RPM_BUILD_ROOT
 # XXX find proper packages
 %dir %{_datadir}/mate-control-center
 %dir %{_datadir}/mate-control-center/keybindings
-%dir %{_datadir}/mate/help/creating-marco-themes
-%dir %{_datadir}/mate/help/creating-marco-themes/C
 
 %files themes
 %defattr(644,root,root,755)

@@ -1,7 +1,12 @@
 # TODO
 # - subpackages for themes (see metacity.spec)
 # - find proper packages for %files
+#
+# Conditional build:
+%bcond_with	gtk3	# use GTK 3.x instead of 2.x
+#
 Summary:	MATE Desktop window manager
+Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		mate-window-manager
 Version:	1.6.2
 Release:	1
@@ -15,61 +20,96 @@ Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 Patch1:		initialise_all_workspace_names.patch
 URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	desktop-file-utils
-BuildRequires:	gtk+2-devel
-BuildRequires:	libcanberra-devel
-BuildRequires:	libcanberra-gtk-devel
+BuildRequires:	gdk-pixbuf2-devel >= 2.0
+BuildRequires:	gettext-devel >= 0.10.40
+BuildRequires:	glib2-devel >= 1:2.26.0
+%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.20.0}
+%{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
+BuildRequires:	intltool >= 0.35.0
+%{!?with_gtk3:BuildRequires:	libcanberra-gtk-devel}
+%{?with_gtk3:BuildRequires:	libcanberra-gtk3-devel}
+BuildRequires:	libgtop-devel
 BuildRequires:	mate-common
-BuildRequires:	mate-doc-utils
+BuildRequires:	mate-doc-utils >= 0.8.0
+BuildRequires:	pango-devel >= 1:1.2.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
-BuildRequires:	startup-notification-devel
+BuildRequires:	startup-notification-devel >= 0.7
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXcomposite-devel >= 0.2
+BuildRequires:	xorg-lib-libXcursor-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXrandr-devel
+BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
-Suggests:	mate-control-center
-# can use any gtk+2 themes nicely, Adwaita specially
-Suggests:	%{name}-themes
-Requires(post):	/sbin/ldconfig
 Requires:	mate-icon-theme
 Requires:	mate-settings-daemon
+Suggests:	mate-control-center
+Suggests:	mate-dialogs
+# can use any gtk+2 themes nicely, Adwaita specially
+Suggests:	%{name}-themes
 Obsoletes:	mate-window-manager-libs < 1.4.1-2
-# http://bugzilla.redhat.com/873342
-#Provides:	firstboot(windowmanager) = mate-window-manager
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-MATE Desktop window manager.
+MATE Desktop window manager. MATE Marco is a fork of GNOME Metacity.
+
+%description -l pl.UTF-8
+Zarządca okien środowiska MATE Desktop. MATE Marco to odgałęzienie
+pakietu GNOME Metacity.
 
 %package libs
-Summary:	marco library
-Summary(pl.UTF-8):	marco biblioteka
+Summary:	Marco (MATE window manager) library
+Summary(pl.UTF-8):	Biblioteka Macro (zarządcy okien MATE)
 Group:		X11/Libraries
+Requires:	glib2 >= 1:2.26.0
+%{!?with_gtk3:Requires:	gtk+2 >= 2:2.20.0}
+%{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
+Requires:	pango >= 1:1.2.0
+Requires:	startup-notification >= 0.7
+Requires:	xorg-lib-libXcomposite >= 0.2
 
 %description libs
-This package contains libraries for MATE window manager.
+This package contains the shared library for Marco, the MATE window
+manager.
 
 %description libs -l pl.UTF-8
-Pakiet zawierający biblioteki zarządcy okien MATE.
+Pakiet zawierający bibliotekę współdzieloną Marco (zarządcy okien
+MATE).
 
 %package devel
-Summary:	Development files for mate-window-manager
+Summary:	Development files for Marco (Mate window manager)
+Summary(pl.UTF-8):	Pliki programistyczne Marco (zarządcy okien MATE)
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
+Requires:	glib2-devel >= 1:2.26.0
+%{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.20.0}
+%{?with_gtk3:Requires:	gtk+3-devel >= 3.0.0}
 
 %description devel
-Development files for mate-window-manager
+Development files for Marco (Mate window manager).
+
+%description devel -l pl.UTF-8
+Pliki programistyczne Marco (zarządcy okien MATE).
 
 %package themes
-Summary:	Themes for Mate Window Manager
+Summary:	Themes for MATE Window Manager
+Summary(pl.UTF-8):	Motywy dla zarządcy okien MATE
 Group:		Themes/GTK+
 Requires:	%{name} = %{version}-%{release}
 
 %description themes
-Themes for Mate Window Manager.
+Themes for MATE Window Manager.
+
+%description themes -l pl.UTF-8
+Motywy dla zarządcy okien MATE
 
 %prep
 %setup -q
@@ -79,11 +119,11 @@ Themes for Mate Window Manager.
 %build
 %configure \
 	MATEDIALOG=%{_bindir}/matedialog \
+	--disable-scrollkeeper \
 	--disable-silent-rules \
 	--disable-static \
-	--disable-scrollkeeper \
 	--with-gnu-ld \
-	--with-gtk=2.0 \
+	%{?with_gtk3:--with-gtk=3.0} \
 	--with-x
 
 %{__make}
@@ -101,8 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 desktop-file-install \
 	--remove-category="MATE" \
 	--delete-original \
-	--dir=$RPM_BUILD_ROOT%{_desktopdir}  \
-$RPM_BUILD_ROOT%{_desktopdir}/marco.desktop
+	--dir=$RPM_BUILD_ROOT%{_desktopdir} \
+	$RPM_BUILD_ROOT%{_desktopdir}/marco.desktop
 
 %find_lang %{name} --all-name --with-mate
 
@@ -110,30 +150,46 @@ $RPM_BUILD_ROOT%{_desktopdir}/marco.desktop
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
 %glib_compile_schemas
 
 %postun
-/sbin/ldconfig
 %glib_compile_schemas
+
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING README
+%doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/marco
 %attr(755,root,root) %{_bindir}/marco-message
-%{_desktopdir}/marco.desktop
 %{_datadir}/mate-window-manager
 %{_datadir}/mate-control-center/keybindings/50-marco*.xml
-#%{_datadir}/mate/help/creating-marco-themes/C/creating-marco-themes.xml
-%{_datadir}/mate/wm-properties
+%dir %{_datadir}/mate/wm-properties
+%{_datadir}/mate/wm-properties/marco-wm.desktop
 %{_datadir}/glib-2.0/schemas/org.mate.marco.gschema.xml
-%{_mandir}/man1/marco.1.*
-%{_mandir}/man1/marco-message.1.*
+%{_desktopdir}/marco.desktop
+%{_mandir}/man1/marco.1*
+%{_mandir}/man1/marco-message.1*
 
-# XXX find proper packages
+# TODO: find better packages
 %dir %{_datadir}/mate-control-center
 %dir %{_datadir}/mate-control-center/keybindings
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libmarco-private.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmarco-private.so.0
+
+%files devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/marco-theme-viewer
+%attr(755,root,root) %{_bindir}/marco-window-demo
+%attr(755,root,root) %{_libdir}/libmarco-private.so
+%{_includedir}/marco-1
+%{_pkgconfigdir}/libmarco-private.pc
+%{_mandir}/man1/marco-theme-viewer.1*
+%{_mandir}/man1/marco-window-demo.1*
 
 %files themes
 %defattr(644,root,root,755)
@@ -147,18 +203,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/themes/Splint
 %{_datadir}/themes/WinMe
 %{_datadir}/themes/eOS
-
-%files libs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libmarco-private.so.*.*.*
-%ghost %{_libdir}/libmarco-private.so.0
-
-%files devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/marco-theme-viewer
-%attr(755,root,root) %{_bindir}/marco-window-demo
-%{_includedir}/marco-1
-%{_libdir}/libmarco-private.so
-%{_pkgconfigdir}/libmarco-private.pc
-%{_mandir}/man1/marco-theme-viewer.1.*
-%{_mandir}/man1/marco-window-demo.1.*

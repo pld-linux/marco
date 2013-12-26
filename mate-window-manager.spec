@@ -9,7 +9,7 @@ Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		mate-window-manager
 Version:	1.6.2
-Release:	1
+Release:	2
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz

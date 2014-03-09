@@ -7,18 +7,20 @@
 #
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
-Name:		mate-window-manager
-Version:	1.6.2
-Release:	2
+Name:		marco
+Version:	1.8.0
+Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
-Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	8f6ef12e31d74840aa3db7275149907d
+Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
+# Source0-md5:	312ede7dfda2cbdf8d27300f2c789bd4
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 # https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847
 Patch1:		initialise_all_workspace_names.patch
 URL:		http://wiki.mate-desktop.org/mate-window-manager
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake
 BuildRequires:	desktop-file-utils
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
 BuildRequires:	gettext-devel >= 0.10.40
@@ -30,7 +32,6 @@ BuildRequires:	intltool >= 0.35.0
 %{?with_gtk3:BuildRequires:	libcanberra-gtk3-devel}
 BuildRequires:	libgtop-devel
 BuildRequires:	mate-common
-BuildRequires:	mate-doc-utils >= 0.8.0
 BuildRequires:	pango-devel >= 1:1.2.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	startup-notification-devel >= 0.7
@@ -55,6 +56,7 @@ Suggests:	mate-control-center
 Suggests:	mate-dialogs
 # can use any gtk+2 themes nicely, Adwaita specially
 Suggests:	%{name}-themes
+Obsoletes:	mate-window-manager
 Obsoletes:	mate-window-manager-libs < 1.4.1-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -75,6 +77,7 @@ Requires:	glib2 >= 1:2.26.0
 Requires:	pango >= 1:1.2.0
 Requires:	startup-notification >= 0.7
 Requires:	xorg-lib-libXcomposite >= 0.2
+Obsoletes:	mate-window-manager-libs >= 1.4.1-2
 
 %description libs
 This package contains the shared library for Marco, the MATE window
@@ -92,6 +95,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.26.0
 %{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.20.0}
 %{?with_gtk3:Requires:	gtk+3-devel >= 3.0.0}
+Obsoletes:	mate-window-manager-devel
 
 %description devel
 Development files for Marco (Mate window manager).
@@ -104,6 +108,7 @@ Summary:	Themes for MATE Window Manager
 Summary(pl.UTF-8):	Motywy dla zarządcy okien MATE
 Group:		Themes/GTK+
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	mate-window-manager-themes
 
 %description themes
 Themes for MATE Window Manager.
@@ -117,6 +122,11 @@ Motywy dla zarządcy okien MATE
 #patch1 -p1
 
 %build
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	MATEDIALOG=%{_bindir}/matedialog \
 	--disable-scrollkeeper \
@@ -134,6 +144,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libmarco-private.la
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/cmn
 
 # mate < 1.5 did not exist in pld, avoid dependency on mate-conf
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/marco.convert
@@ -163,7 +174,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/marco
 %attr(755,root,root) %{_bindir}/marco-message
-%{_datadir}/mate-window-manager
+%{_datadir}/marco
 %{_datadir}/mate-control-center/keybindings/50-marco*.xml
 %dir %{_datadir}/mate/wm-properties
 %{_datadir}/mate/wm-properties/marco-wm.desktop

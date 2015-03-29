@@ -8,12 +8,12 @@
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		marco
-Version:	1.8.2
-Release:	2
+Version:	1.8.3
+Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	265dc15c523a4688de0e10eb976df751
+# Source0-md5:	bf22da6cac998be5de2296d51a96b1c2
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 # https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847
@@ -47,13 +47,14 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xz
+BuildRequires:	zenity
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
 Requires:	mate-icon-theme
 Requires:	mate-settings-daemon
+Requires:	zenity
 Suggests:	mate-control-center
-Suggests:	mate-dialogs
 # can use any gtk+2 themes nicely, Adwaita specially
 Suggests:	%{name}-themes
 Obsoletes:	mate-window-manager

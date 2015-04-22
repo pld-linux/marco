@@ -47,7 +47,6 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xz
-BuildRequires:	zenity
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.26.0
 Requires:	gsettings-desktop-schemas
@@ -129,7 +128,7 @@ Motywy dla zarządcy okien MATE
 %{__autoheader}
 %{__automake}
 %configure \
-	MATEDIALOG=%{_bindir}/matedialog \
+	ZENITY=%{_bindir}/zenity \
 	--disable-scrollkeeper \
 	--disable-silent-rules \
 	--disable-static \

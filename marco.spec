@@ -40,7 +40,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	xorg-lib-libX11-devel
-BuildRequires:	xorg-lib-libXcomposite-devel >= 0.2
+BuildRequires:	xorg-lib-libXcomposite-devel >= 0.3
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXdamage-devel
@@ -79,7 +79,7 @@ Requires:	glib2 >= 1:2.32.0
 %{?with_gtk3:Requires:	mate-desktop-libs >= 1.9.3}
 Requires:	pango >= 1:1.2.0
 Requires:	startup-notification >= 0.7
-Requires:	xorg-lib-libXcomposite >= 0.2
+Requires:	xorg-lib-libXcomposite >= 0.3
 Obsoletes:	mate-window-manager-libs >= 1.4.1-2
 
 %description libs

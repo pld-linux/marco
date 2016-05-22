@@ -8,12 +8,12 @@
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		marco
-Version:	1.14.1
+Version:	1.14.2
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	120a36b86010f452993a948e9b038a2e
+# Source0-md5:	52e7b11912d1adcacfaecee7933ca996
 # https://bugzilla.gnome.org/show_bug.cgi?id=622517
 Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
 # https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847

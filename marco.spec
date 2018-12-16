@@ -11,10 +11,6 @@ License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.20/%{name}-%{version}.tar.xz
 # Source0-md5:	e6f41fd3816755c6ad9c440b184bce59
-# https://bugzilla.gnome.org/show_bug.cgi?id=622517
-Patch0:		Allow-breaking-out-from-maximization-during-mouse.patch
-# https://bugs.launchpad.net/ubuntu/+source/metacity/+bug/583847
-Patch1:		initialise_all_workspace_names.patch
 URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -22,7 +18,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
 BuildRequires:	gettext-tools >= 0.10.40
 BuildRequires:	glib2-devel >= 1:2.50.0
-BuildRequires:	gtk+3-devel >= 3.22
+BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	libcanberra-gtk3-devel
 BuildRequires:	libgtop-devel >= 2.0
@@ -49,7 +45,7 @@ BuildRequires:	yelp-tools
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2 >= 1:2.50.0
 Requires:	gsettings-desktop-schemas
-Requires:	gtk+3 >= 3.22
+Requires:	gtk+3 >= 3.22.0
 Requires:	mate-icon-theme
 Requires:	mate-settings-daemon
 Requires:	zenity
@@ -71,8 +67,8 @@ pakietu GNOME Metacity.
 Summary:	Marco (MATE window manager) library
 Summary(pl.UTF-8):	Biblioteka Macro (zarządcy okien MATE)
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.36.0
-Requires:	gtk+3 >= 3.14
+Requires:	glib2 >= 1:2.50.0
+Requires:	gtk+3 >= 3.22.0
 Requires:	mate-desktop-libs >= 1.9.3
 Requires:	pango >= 1:1.2.0
 Requires:	startup-notification >= 0.7
@@ -92,8 +88,8 @@ Summary:	Development files for Marco (Mate window manager)
 Summary(pl.UTF-8):	Pliki programistyczne Marco (zarządcy okien MATE)
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.36.0
-Requires:	gtk+3-devel >= 3.14
+Requires:	glib2-devel >= 1:2.50.0
+Requires:	gtk+3-devel >= 3.22.0
 Requires:	mate-desktop-devel >= 1.9.3
 Obsoletes:	mate-window-manager-devel
 
@@ -118,8 +114,6 @@ Motywy dla zarządcy okien MATE
 
 %prep
 %setup -q
-#%patch0 -p1
-#patch1 -p1
 
 %build
 %{__libtoolize}
@@ -144,7 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libmarco-private.la
 
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,ku_IQ,jv}
+# ku_IQ is outdated version of ku; the rest not supported by glibc
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,jv,ku_IQ}
 
 desktop-file-install \
 	--remove-category="MATE" \

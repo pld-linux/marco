@@ -5,12 +5,12 @@
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		marco
-Version:	1.22.2
+Version:	1.22.3
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	http://pub.mate-desktop.org/releases/1.22/%{name}-%{version}.tar.xz
-# Source0-md5:	7931114b4ed81056ac128dd6e56c8186
+# Source0-md5:	7a9a06c714ffcaf42218901bc1c60521
 URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake

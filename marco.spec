@@ -5,26 +5,26 @@
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		marco
-Version:	1.22.4
+Version:	1.24.0
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
-Source0:	http://pub.mate-desktop.org/releases/1.22/%{name}-%{version}.tar.xz
-# Source0-md5:	59cca5bea539d7c9a32abbbb79d73827
+Source0:	http://pub.mate-desktop.org/releases/1.24/%{name}-%{version}.tar.xz
+# Source0-md5:	5303fa9b3113654731024ae2fb341cb7
 URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	desktop-file-utils
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
-BuildRequires:	gettext-tools >= 0.10.40
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.50.0
 BuildRequires:	gtk+3-devel >= 3.22.0
-BuildRequires:	intltool >= 0.50.1
 BuildRequires:	libcanberra-gtk3-devel
 BuildRequires:	libgtop-devel >= 2.0
 BuildRequires:	mate-common
 BuildRequires:	mate-desktop-devel >= 1.9.3
 BuildRequires:	pango-devel >= 1:1.2.0
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	startup-notification-devel >= 0.7
 BuildRequires:	tar >= 1:1.22
@@ -33,8 +33,8 @@ BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXcomposite-devel >= 0.3
 BuildRequires:	xorg-lib-libXcursor-devel
-BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXpresent-devel
@@ -196,10 +196,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files themes
 %defattr(644,root,root,755)
+%{_datadir}/themes/Atlanta
 %{_datadir}/themes/ClearlooksRe
 %{_datadir}/themes/Dopple-Left
 %{_datadir}/themes/Dopple
 %{_datadir}/themes/DustBlue
+%{_datadir}/themes/Esco
+%{_datadir}/themes/Gorilla
+%{_datadir}/themes/Motif
+%{_datadir}/themes/Raleigh
 %{_datadir}/themes/Spidey-Left
 %{_datadir}/themes/Spidey
 %{_datadir}/themes/Splint-Left

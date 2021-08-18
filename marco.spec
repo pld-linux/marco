@@ -5,19 +5,19 @@
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		marco
-Version:	1.24.2
+Version:	1.26.0
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
-Source0:	https://pub.mate-desktop.org/releases/1.24/%{name}-%{version}.tar.xz
-# Source0-md5:	721ba1f92debbb378842ed9d7ee19fba
+Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
+# Source0-md5:	f959d265495beb242f1b743f24100cb6
 URL:		http://wiki.mate-desktop.org/mate-window-manager
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	desktop-file-utils
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	glib2-devel >= 1:2.50.0
+BuildRequires:	glib2-devel >= 1:2.68.0
 BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	libcanberra-gtk3-devel
 BuildRequires:	libgtop-devel >= 2.0
@@ -43,7 +43,7 @@ BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xz
 BuildRequires:	yelp-tools
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2 >= 1:2.50.0
+Requires:	glib2 >= 1:2.68.0
 Requires:	gsettings-desktop-schemas
 Requires:	gtk+3 >= 3.22.0
 Requires:	mate-icon-theme
@@ -67,7 +67,7 @@ pakietu GNOME Metacity.
 Summary:	Marco (MATE window manager) library
 Summary(pl.UTF-8):	Biblioteka Macro (zarządcy okien MATE)
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.50.0
+Requires:	glib2 >= 1:2.68.0
 Requires:	gtk+3 >= 3.22.0
 Requires:	mate-desktop-libs >= 1.9.3
 Requires:	pango >= 1:1.2.0
@@ -88,7 +88,7 @@ Summary:	Development files for Marco (Mate window manager)
 Summary(pl.UTF-8):	Pliki programistyczne Marco (zarządcy okien MATE)
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.50.0
+Requires:	glib2-devel >= 1:2.68.0
 Requires:	gtk+3-devel >= 3.22.0
 Requires:	mate-desktop-devel >= 1.9.3
 Obsoletes:	mate-window-manager-devel

@@ -11,7 +11,7 @@ License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
 Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
 # Source0-md5:	f959d265495beb242f1b743f24100cb6
-URL:		http://wiki.mate-desktop.org/mate-window-manager
+URL:		https://wiki.mate-desktop.org/mate-desktop/components/marco/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	desktop-file-utils
@@ -26,6 +26,7 @@ BuildRequires:	mate-desktop-devel >= 1.9.3
 BuildRequires:	pango-devel >= 1:1.2.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.36
+BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	startup-notification-devel >= 0.7
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libICE-devel
@@ -52,8 +53,7 @@ Requires:	zenity
 Suggests:	mate-control-center
 # can use any gtk+2 themes nicely, Adwaita specially
 Suggests:	%{name}-themes
-Obsoletes:	mate-window-manager
-Obsoletes:	mate-window-manager-libs < 1.4.1-2
+Obsoletes:	mate-window-manager < 1.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -73,7 +73,7 @@ Requires:	mate-desktop-libs >= 1.9.3
 Requires:	pango >= 1:1.2.0
 Requires:	startup-notification >= 0.7
 Requires:	xorg-lib-libXcomposite >= 0.3
-Obsoletes:	mate-window-manager-libs >= 1.4.1-2
+Obsoletes:	mate-window-manager-libs < 1.8.0
 
 %description libs
 This package contains the shared library for Marco, the MATE window
@@ -91,7 +91,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.68.0
 Requires:	gtk+3-devel >= 3.22.0
 Requires:	mate-desktop-devel >= 1.9.3
-Obsoletes:	mate-window-manager-devel
+Obsoletes:	mate-window-manager-devel < 1.8.0
 
 %description devel
 Development files for Marco (Mate window manager).
@@ -104,7 +104,7 @@ Summary:	Themes for MATE Window Manager
 Summary(pl.UTF-8):	Motywy dla zarządcy okien MATE
 Group:		Themes/GTK+
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	mate-window-manager-themes
+Obsoletes:	mate-window-manager-themes < 1.8.0
 
 %description themes
 Themes for MATE Window Manager.
@@ -133,6 +133,7 @@ Motywy dla zarządcy okien MATE
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 

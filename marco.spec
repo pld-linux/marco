@@ -5,14 +5,14 @@
 Summary:	MATE Desktop window manager
 Summary(pl.UTF-8):	Zarządca okien środowiska MATE Desktop
 Name:		marco
-Version:	1.26.2
+Version:	1.28.1
 Release:	1
 License:	LGPL v2+ and GPL v2+
 Group:		X11/Window Managers
-Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
-# Source0-md5:	e2d74458f96c9f802bc12521f06c1554
+Source0:	https://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
+# Source0-md5:	1d627834570fb84b0145b2715ed4c46c
 URL:		https://wiki.mate-desktop.org/mate-desktop/components/marco/
-BuildRequires:	autoconf >= 2.50
+BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake
 BuildRequires:	desktop-file-utils
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
@@ -22,7 +22,7 @@ BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	libcanberra-gtk3-devel
 BuildRequires:	libgtop-devel >= 2.0
 BuildRequires:	mate-common
-BuildRequires:	mate-desktop-devel >= 1.9.3
+BuildRequires:	mate-desktop-devel >= 1.27.1
 BuildRequires:	pango-devel >= 1:1.2.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.36
@@ -41,7 +41,7 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXpresent-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
-BuildRequires:	xorg-lib-libXres-devel
+BuildRequires:	xorg-lib-libXres-devel >= 1.2.0
 BuildRequires:	xz
 BuildRequires:	yelp-tools
 Requires:	%{name}-libs = %{version}-%{release}
@@ -70,10 +70,11 @@ Summary(pl.UTF-8):	Biblioteka Macro (zarządcy okien MATE)
 Group:		X11/Libraries
 Requires:	glib2 >= 1:2.68.0
 Requires:	gtk+3 >= 3.22.0
-Requires:	mate-desktop-libs >= 1.9.3
+Requires:	mate-desktop-libs >= 1.27.1
 Requires:	pango >= 1:1.2.0
 Requires:	startup-notification >= 0.7
 Requires:	xorg-lib-libXcomposite >= 0.3
+Requires:	xorg-lib-libXres >= 1.2.0
 Obsoletes:	mate-window-manager-libs < 1.8.0
 
 %description libs
@@ -91,7 +92,7 @@ Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.68.0
 Requires:	gtk+3-devel >= 3.22.0
-Requires:	mate-desktop-devel >= 1.9.3
+Requires:	mate-desktop-devel >= 1.27.1
 Obsoletes:	mate-window-manager-devel < 1.8.0
 
 %description devel
